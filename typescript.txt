@@ -1,0 +1,87 @@
+js let age=30;
+let age:number;
+age=25;
+Typescript:
+let message: string = "Hello TypeScript";
+console.log(message);
+
+let data:any;
+data=10;
+data="hello";
+data="true"
+
+var vs let
+var redeclare
+let no redeclare
+
+var x = 10
+var x = 20   // allowed
+
+let y = 10
+let y = 20   // error
+
+Static and Dynamic Typing:
+Static typing:(Typescript)
+Type is fixed once declared
+let score:number=90;
+score="A"; Error
+Dynamic Typing:(javascript)
+let score=90;
+score="A"; Allowed
+
+datatypes in Typescript:
+!.String:
+used for text values
+let username:string="Student";
+let message:string='welcome $(username)';
+
+2.Number:
+used for integers and decimals
+let age:number=33;
+let price:number=99.99;
+
+3.Boolean:
+true or false
+let isACtive:boolean=true;
+
+4.Array:
+let marks:number[]=[50,85,78];
+let names:string[]=["user1","user2","user3"];
+
+5.Tuple:
+fixed number of elements with datatypes
+let student:[number,string]=[101,"user1"];
+
+6.enum:
+Enumeration is a special type used to define a set of names constant values
+enum Status{
+Active,
+Inactive,
+Pending
+}
+let userstatus:Status=Status.Active;
+let userstatus:Status=Status.InActive;
+let userstatus:Status=Status.Pending;
+reverse mapping:
+typescript allows number -> name mapping
+console.log(status[0]);
+console.log(status[1]);
+console.log(status[2]);
+
+7.Null and undefined
+let value:null=null;
+let data:undefined=undefined;
+
+8.object:
+let user:{name:string;age:number}={name:"user1",age=22};
+
+let employee:string="TECHM!EMP";
+let employeeid:number=1001;
+let ispermanent:boolean=true;
+console.log(employee,employeeid,ispermanent);
+
+
+
+
+
+
