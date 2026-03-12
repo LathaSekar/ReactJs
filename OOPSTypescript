@@ -1,0 +1,254 @@
+OOPS in typescript:
+ It is a programming paradigm that organizes code using classes and Objects
+OOPS Cocept:
+Class
+Object
+Inheritance
+Encapsulation
+Polymorphism
+Abstraction
+Class:
+class is a blueprint for creating objects
+class person{
+     name:string;
+     age:number;
+display(){
+console.log(this.name + " " + this.age);
+}
+}
+let p1=new person();
+p1.name="Santhosh";
+p1.age=22;
+p1.display();
+output:
+Santhosh 22
+
+Inheritance:
+Single Inheritance:
+One child class inherits one parent class
+class A {}
+class B extends A {}
+Example:
+class Employee {
+    name: string = "Ravi";
+
+    work() {
+        console.log("Employee is working");
+    }
+}
+class Manager extends Employee {
+    manageTeam() {
+        console.log("Manager manages the team");
+    }
+}
+let m = new Manager();
+m.work();
+m.manageTeam();  #manager automatically gets all employee features
+Output:
+Employee is working
+Manager manages the team
+
+Multilevel Inheritance:
+Inheritance in different levels
+class A{}
+class B extends A{}
+class C extends B{}
+Example:
+class Employee {
+    work() {
+        console.log("Employee works on tasks");
+    }
+}
+class Manager extends Employee {
+    manageTeam() {
+        console.log("Manager manages employees");
+    }
+}
+
+class Director extends Manager {
+    makeStrategy() {
+        console.log("Director creates company strategy");
+    }
+}
+let d = new Director();
+d.work();
+d.manageTeam();
+d.makeStrategy();
+Output:
+Employee works on tasks
+Manager manages employees
+Director creates company strategy
+
+Hierarchial Inheritance:
+Multiple classes inherit from the same parent class
+class A{}
+class B extends A{}
+class C extends A{}
+Example:
+class Vehicle {
+    start() {
+        console.log("Vehicle starts");
+    }
+}
+class Car extends Vehicle {
+    drive() {
+        console.log("Car is driving");
+    }
+}
+class Bike extends Vehicle {
+    ride() {
+        console.log("Bike is riding");
+    }
+}
+let car = new Car();
+car.start();
+car.drive();
+let bike = new Bike();
+bike.start();
+bike.ride();
+Different vehicle types share common vehicle features
+Output:
+Vehicle starts
+Car is driving
+Vehicle starts
+Bike is riding
+
+Multiple Inheritance:
+One class can implement multiple interfaces
+example:
+interface Camera {
+    takePhoto(): void;  # the method doesnot return any value
+}
+
+interface MusicPlayer {
+    playMusic(): void;
+}
+
+class SmartPhone implements Camera, MusicPlayer {
+
+    takePhoto() {
+        console.log("Taking photo");
+    }
+
+    playMusic() {
+        console.log("Playing music");
+    }
+}
+
+let phone = new SmartPhone();
+phone.takePhoto();
+phone.playMusic();
+Output:
+Taking photo
+Playing music
+smartphone class inherits features from multiple interfaces
+
+Property,Methods and constructor:
+Property:
+variables inside a class
+Method:
+Functions inside a class
+Constructor:
+ A constructor is a special method automatically called when an object is created
+Example:
+class Employee {
+
+    name: string;
+    salary: number;
+
+    constructor(name: string, salary: number) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    display() {
+        console.log("Name:", this.name);
+        console.log("Salary:", this.salary);
+    }
+}
+
+let emp1 = new Employee("Ravi", 50000);
+emp1.display();
+Output:
+Name: Ravi
+Salary: 50000
+
+Access Modifiers in Typescript:
+It control the visibility of class members
+Public
+Private
+Protected
+Public:
+Accessible everywhere
+class Student {
+
+    public name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    display() {
+        console.log(this.name);
+    }
+}
+
+let s = new Student("Ravi");
+console.log(s.name);   // Accessible outside class
+s.display();
+Output:
+Ravi
+Ravi
+Private:
+private members are accessible only inside the class.
+class BankAccount {
+    private balance: number;
+    constructor(balance: number) {
+        this.balance = balance;
+    }
+    showBalance() {
+        console.log("Balance:", this.balance);
+    }
+}
+let account = new BankAccount(5000);
+account.showBalance();
+
+// console.log(account.balance); ❌ Error
+Output:
+Balance: 5000
+Balance: 5000
+
+Protected:
+protected members are accessible:
+✔ Inside the class
+✔ In child classes (inheritance)
+❌ Not accessible outside the class
+
+class Employee {
+     protected salary: number = 50000;
+}
+
+class Manager extends Employee {
+   displaySalary() {
+        console.log(this.salary);
+    }
+}
+let m = new Manager();
+m.displaySalary();
+
+// console.log(m.salary); ❌ Error
+Output:
+50000
+
+Static Methods in TypeScript
+A static method belongs to the class, not to the object.
+It is called using the class name.
+
+Example
+class MathUtils {
+
+    static add(a: number, b: number): number {
+        return a + b;
+    }
+}
+console.log(MathUtils.add(5, 3));
