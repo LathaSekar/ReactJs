@@ -1,0 +1,55 @@
+Understanding React Components
+A React Component is a reusable piece of UI used to build web applications.
+Components help divide the UI into independent and reusable parts.
+React components:
+Functional Components
+function Hello() {
+  return <h1>Hello World</h1>;
+}
+Class Components:
+import React from "react";
+class Hello extends React.Component {
+  render() {
+    return <h1>Hello World</h1>;
+  }
+}
+
+Advantages of  using react components:
+1 Reusability
+Write once and use multiple times.
+2 Easy Maintenance
+Small components are easier to manage.
+3 Better Code Organization
+Application structure becomes clean.
+4 Faster Development
+Developers can reuse existing components.
+5 Improved Testing
+Each component can be tested independently.
+
+Creating and managing react Components:
+function Header() {
+  return <h1>My Website</h1>;
+}
+function Footer() {
+  return <h2>Copyright 2026</h2>;
+}
+function App() {
+  return (
+    <div>
+      <Header />
+      <Footer />
+    </div>
+  );
+}
+Simple React Lifecycle Flow:
+Mounting
+   ↓
+Updating
+   ↓
+Unmounting
+
+
+
+
+
+
