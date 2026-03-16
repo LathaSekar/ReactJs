@@ -1,0 +1,87 @@
+JSX (JavaScript XML) is a syntax used in React to write HTML inside JavaScript.
+It makes UI code easier to read and write.
+Example:
+const element = <h1>Hello React</h1>;
+
+JSX allows developers to create UI elements using HTML-like syntax.
+JSX is compiled into JavaScript using Babel.
+
+Understanding JSX Format:
+const element = (
+  <div>
+    <h1>Welcome</h1>
+    <p>Learning React</p>
+  </div>
+);
+Rules of JSX:
+Must return one parent element
+Use className instead of class
+Tags must be closed
+
+Understanding JSX Rendering:
+JSX elements are rendered to the browser using React DOM.
+  index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSX Example</title>
+</head>
+<body>
+
+<div id="root">    </div>
+
+</body>
+</html>
+index.jsx
+import React from "react";
+import ReactDOM from "react-dom";
+const element = <h1>Hello React</h1>;
+ReactDOM.render(element, document.getElementById("root"));
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+const element = <h1>Hello JSX Rendering</h1>;
+JSX rendering Multiple elements
+const element = (
+  <div>
+    <h1>Welcome</h1>
+    <p>Learning React</p>
+  </div>
+);
+Rendering JS expressions:
+const name="Santhosh";
+const element=(
+  <h1> Hello {name}</h1>
+              );
+
+Rendering functions in jsx:
+function greet(user){
+   return "Hello " + user;
+}
+const element = (
+  <h1>{greet("React User")}</h1>
+);
+
+Conditional Rendering:
+const isLoggedIn = true;
+const element = (
+  <div>
+     {isLoggedIn ? <h1>Welcome User</h1> : <h1>Please Login</h1>}
+  </div>
+);
+
+Rendering lists:
+const fruits = ["Apple","Orange","Mango"];
+const element = (
+  <ul>
+    {fruits.map((fruit) =>
+        <li>{fruit}</li>
+    )}
+  </ul>
+);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(element);
+
+Comments in JSX:
+{/* This is a JSX comment */}
+
