@@ -1,38 +1,90 @@
-Understanding React Components
+1. Understanding React Components
 A React Component is a reusable piece of UI used to build web applications.
 Components help divide the UI into independent and reusable parts.
-React components:
-Functional Components
+Example:
+A website page can be divided into components like:
+
+* Header
+* Navigation
+* Content
+* Footer
+
+Example Code:
+
+function Welcome() {
+  return <h1>Hello User</h1>;
+}
+
+Use the component:
+function App() {
+  return <Welcome />;
+}
+```
+
+Here Welcome is a component
+
+2. Exploring Various Types of React Components
+
+There are mainly **two types of components** in **React**.
+
+1. Functional Components
+
+These are simple JavaScript functions.
+
+Example:
 function Hello() {
   return <h1>Hello World</h1>;
 }
-Class Components:
+
+
+Advantages:
+
+* Easy to write
+* Less code
+* Uses React Hooks
+
+ 2. Class Components
+Class components use ES6 classes.
+
+Example:
 import React from "react";
+
 class Hello extends React.Component {
   render() {
     return <h1>Hello World</h1>;
   }
 }
+```
 
-Advantages of  using react components:
+They support state and lifecycle methods.
+
+3. Advantages of Using React Components
+React Components provide many benefits:
 1 Reusability
 Write once and use multiple times.
 2 Easy Maintenance
 Small components are easier to manage.
 3 Better Code Organization
 Application structure becomes clean.
-4 Faster Development
+ 4 Faster Development
 Developers can reuse existing components.
+
 5 Improved Testing
 Each component can be tested independently.
 
-Creating and managing react Components:
+4. Creating and Managing React Components
+A component is created as a **function or class**.
+
+Example:
+
 function Header() {
   return <h1>My Website</h1>;
 }
+
 function Footer() {
   return <h2>Copyright 2026</h2>;
 }
+
 function App() {
   return (
     <div>
@@ -41,12 +93,230 @@ function App() {
     </div>
   );
 }
-Simple React Lifecycle Flow:
+
+Here we created two components:
+
+* Header
+* Footer
+
+And used them inside the App component.
+
+ 5. Referring a Component
+A component can be used inside another component like an **HTML tag**.
+
+Example:
+
+```javascript
+function Message() {
+  return <h2>Welcome to React</h2>;
+}
+
+function App() {
+  return (
+    <div>
+      <Message />
+    </div>
+  );
+}
+
+Here Message component is referenced inside*App.
+
+Rules:
+
+* Component names must start with capital letters
+* Must return JSX
+
+6. Understanding the Component Life Cycle
+React components go through different stages during their life.
+This process is called the **Component Lifecycle**.
+Main phases:
+1️⃣ Mounting
+Component is created and added to the DOM.
+Example methods:
+* constructor()
+* render()
+* componentDidMount()
+
+2️⃣ Updating
+Component updates when state or props change.
+Example methods:
+* shouldComponentUpdate()
+* componentDidUpdate()
+
+3️⃣ Unmounting
+Component is removed from the DOM.
+Example method:
+* componentWillUnmount()
+
+
+
+# Simple React Lifecycle Flow
+
+```text
 Mounting
    ↓
 Updating
    ↓
 Unmounting
+Mounting → componentDidMount
+Updating → componentDidUpdate
+Unmounting → componentWillUnmount
+
+Example Lifecycle Method
+class Example extends React.Component {
+  componentDidMount() {
+    console.log("Component Loaded");
+  }
+  componentDidUpdate() {
+    console.log("Component Updated");
+  }
+  componentWillUnmount() {
+    console.log("Component Removed");
+  }
+  render() {
+    return <h1>Lifecycle Example</h1>;
+  }
+}
+
+🔹 componentDidMount()-Mounting Phase
+Runs after the component is added to the DOM.
+Use cases:
+API calls
+Fetching data
+Setting timers
+class App extends React.Component {
+  componentDidMount() {
+    console.log("Component Mounted");
+  }
+
+  render() {
+    return <h1>Hello React</h1>;
+  }
+}
+import React from "react";
+class Users extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      users: []
+    };
+  }
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ users: data });
+      });
+  }
+  render() {
+    return (
+      <div>
+        <h2>User List</h2>
+        <ul>
+          {this.state.users.map(user => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+export default Users;
+
+🔹 componentWillUnmount()
+Runs before the component is removed from the DOM.
+Use cases:
+Clear timers
+Cancel API calls
+Cleanup
+class App extends React.Component {
+  componentWillUnmount() {
+    console.log("Component Unmounted");
+  }
+  render() {
+    return <h1>Goodbye</h1>;
+  }
+}
+
+componentWillUpdate-deprecated and componentDidUpdate
+These belong to the Updating Phase.
+🔹 componentDidUpdate()
+Runs after component updates (state/props change).
+Example:
+class Counter extends React.Component {
+  state = { count: 0 };
+  componentDidUpdate() {
+    console.log("Component Updated");
+  }
+  render() {
+    return (
+      <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+        {this.state.count}
+      </button>
+    );
+  }
+}
+
+Understanding Access to Child Components
+Parent and child components communicate using props.
+🔹 Passing Data (Parent → Child)
+function Parent() {
+  return <Child name="Latha" />;
+}
+function Child(props) {
+  return <h1>Hello {props.name}</h1>;
+}
+function Parent() {
+  return <Child name="Latha" />;
+}
+
+function User(props) {
+  return (
+    <div>
+      <h2>Name: {props.name}</h2>
+      <p>Age: {props.age}</p>
+    </div>
+  );
+}
+function App() {
+  return (
+    <div>
+      <User name="Latha" age={25} />
+      <User name="Ajay" age={28} />
+    </div>
+  );
+}
+Creating and Managing Component Events
+Events handle user interactions like clicks, typing, etc.
+🔹 Basic Event Handling
+function App() {
+  function handleClick() {
+    alert("Button Clicked");
+  }
+  return <button onClick={handleClick}>Click Me</button>;
+}
+🔹 Passing Parameters in Events
+function App() {
+  function greet(name) {
+    alert("Hello " + name);
+  }
+  return (
+    <button onClick={() => greet("Latha")}>
+      Click
+    </button>
+  );
+}
+🔹 Event Handling in Class Components
+class App extends React.Component {
+  handleClick = () => {
+    alert("Clicked");
+  };
+
+  render() {
+    return <button onClick={this.handleClick}>Click</button>;
+  }
+}
+
 
 
 
