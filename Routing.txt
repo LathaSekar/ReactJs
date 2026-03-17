@@ -1,0 +1,332 @@
+🔷 1. Understanding Routers in React
+
+Routing in React allows navigation between different components (pages) without reloading the page (SPA concept).
+
+Example:
+
+* `/home` → Home Component
+* `/about` → About Component
+
+
+ 🔷 2. React Router Library
+
+The most popular library is:
+ React Router
+
+ Installation:
+npm install react-router-dom
+
+
+ Core Components:
+
+* `BrowserRouter` → Wraps entire app
+* `Routes` → Holds route list
+* `Route` → Defines path + component
+* `Link` → Navigation
+
+import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+// Home Component
+function Home() {
+  return <h2>🏠 Home Page</h2>;
+}
+
+// About Component
+function About() {
+  return <h2>ℹ️ About Page</h2>;
+}
+
+// Contact Component
+function Contact() {
+  return <h2>📞 Contact Page</h2>;
+}
+
+// Main App
+function App() {
+  return (
+    <BrowserRouter>  
+      {/* Navigation Links */}
+      <nav>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/about">About</Link> |{" "}
+        <Link to="/contact">Contact</Link>
+      </nav>
+
+      {/* Routing Setup */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+
+    </BrowserRouter>
+  );
+}
+export default App;
+
+🔷 3. Basic Routing Example
+
+```jsx
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+function Home() {
+  return <h1>Home Page</h1>;
+}
+
+function About() {
+  return <h1>About Page</h1>;
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+🔷 4. Route Parameters (Dynamic Routing)
+Used to pass dynamic values in URL.
+
+👉 Example:
+`/user/101`
+
+```jsx
+import { useParams } from "react-router-dom";
+function User() {
+  const { id } = useParams();
+  return <h1>User ID: {id}</h1>;
+}
+
+🔷 5. Nested Routing
+Used when you have **child pages inside parent page**
+
+```jsx
+<Route path="/dashboard" element={<Dashboard />}>
+  <Route path="profile" element={<Profile />} />
+  <Route path="settings" element={<Settings />} />
+</Route>
+
+Inside Dashboard:
+```jsx
+import { Outlet } from "react-router-dom";
+function Dashboard() {
+  return (
+    <>
+      <h1>Dashboard</h1>
+      <Outlet />
+    </>
+  );
+}
+Apps.js(child)
+import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Dashboard from "./Dashboard";
+import Profile from "./Profile";
+import Settings from "./Settings";
+
+function App() {
+  return (
+    <BrowserRouter>
+
+      {/* Main Navigation */}
+      <nav>
+        <Link to="/dashboard">Dashboard</Link>
+      </nav>
+
+      <Routes>
+        {/* Parent Route */}
+        <Route path="/dashboard" element={<Dashboard />}>
+
+          {/* Nested Child Routes */}
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+
+        </Route>
+      </Routes>
+
+    </BrowserRouter>
+  );
+}
+Dashboard.js(parent)
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
+
+function Dashboard() {
+  return (
+    <div>
+      <h2>📊 Dashboard</h2>
+
+      {/* Nested Navigation */}
+      <nav>
+        <Link to="profile">Profile</Link> |{" "}
+        <Link to="settings">Settings</Link>
+      </nav>
+
+      {/* Child Components Render Here */}
+      <Outlet />
+    </div>
+  );
+}
+
+export default Dashboard;
+export default App;
+| URL                   | Output               |
+| --------------------- | -------------------- |
+| `/dashboard`          | Dashboard only       |
+| `/dashboard/profile`  | Dashboard + Profile  |
+| `/dashboard/settings` | Dashboard + Settings |
+
+🔷 6. React Router with Redux
+Redux
+Use Redux for global state (e.g., login, auth).
+
+Example:
+
+* Store login status in Redux
+* Protect routes
+
+```jsx
+const isLoggedIn = useSelector(state => state.auth);
+
+<Route
+  path="/dashboard"
+  element={isLoggedIn ? <Dashboard /> : <Login />}
+/>
+🔷 7. Understanding APIs & Web Services
+
+👉 API = Application Programming Interface
+Used to fetch/send data between frontend & backend.
+
+Example:
+
+* React → API → Database
+
+🔷 8. HTTP Requests & Responses
+
+ Common Methods:
+
+* GET → Fetch data
+* POST → Send data
+* PUT → Update
+* DELETE → Remove
+
+Response:
+
+```json
+{
+  "status": 200,
+  "data": []
+}
+
+🔷 9. Fetch vs Axios
+
+👉 Axios
+Using Fetch:
+
+```js
+fetch("https://api.example.com/users")
+  .then(res => res.json())
+  .then(data => console.log(data));
+import React, { useEffect, useState } from "react";
+function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users") // GET API
+      .then(response => response.json())
+      .then(data => setUsers(data))
+      .catch(error => console.log("Error:", error));
+  }, []);
+
+  return (
+    <div>
+      <h2>User List</h2>
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default Users;
+ Using Axios:
+npm install axios
+
+```js
+import axios from "axios";
+
+axios.get("https://api.example.com/users")
+  .then(res => console.log(res.data));
+
+ Axios advantages:
+
+* Cleaner syntax
+* Auto JSON parsing
+* Better error handling
+
+🔷 10. Handling API Calls in React
+
+Using `useEffect`:
+
+```jsx
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://api.example.com/users")
+      .then(res => setUsers(res.data));
+  }, []);
+
+  return (
+    <ul>
+      {users.map(u => <li key={u.id}>{u.name}</li>)}
+    </ul>
+  );
+}
+
+🔷 11. ESLint & Coding Conventions
+
+ESLint
+
+Why ESLint?
+
+* Avoid errors
+* Maintain clean code
+* Follow best practices
+
+ Example Rule:
+
+```bash
+npm install eslint
+
+
+🔷 12. Debugging Tools & Strategies
+
+Tools:
+
+* Chrome DevTools
+* React DevTools Extension
+* Console logs
+
+ Strategies:
+
+* Use `console.log()`
+* Check Network tab for API calls
+* Breakpoints in browser
+* Validate props/state
+
+ 
+
