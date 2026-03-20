@@ -1,1 +1,260 @@
+🔹 1. Understanding Application State
+State is data that changes over time and affects UI.
+
+ Example:
+
+```js
+const [count, setCount] = useState(0);
+```
+
+Here `count` is state.
+ Problem in Large Apps
+
+When app grows:
+
+* Too many components
+* State sharing becomes messy
+* Props drilling issue ❌
+
+ Solution: Centralized State Management (Redux / Flux)
+
+---
+🔹 2. The Power of Redux for React
+
+Redux is a Central store to manage application state.
+
+React Components → Request → Redux Store → Response → UI Update
+Key Benefits:
+
+* Single source of truth ✅
+* Predictable state updates ✅
+* Easy debugging ✅
+* Better for large applications ✅
+
+🔹 3. Redux Architecture (Core Flow)
+Component → Action → Reducer → Store → Component
+🔹 Step-by-Step Flow
+
+1. User clicks button
+2. Component dispatches action
+3. Reducer updates state
+4. Store holds updated state
+5. UI re-renders
+
+
+🔹 4. Redux Example (Simple Counter)
+ Step 1: Install Redux
+
+```bash
+npm install redux react-redux
+ Step 2: Create Action
+
+```js
+// actions.js
+export const increment = () => {
+  return {
+    type: "INCREMENT"
+  };
+};
+  Step 3: Create Reducer
+
+```js
+// reducer.js
+const initialState = {
+  count: 0
+};
+
+export const counterReducer = (state = initialState, action) => {
+  switch(action.type) {
+    case "INCREMENT":
+      return { ...state, count: state.count + 1 };
+
+    default:
+      return state;
+  }
+};
+
+ Step 4: Create Store
+
+```js
+// store.js
+import { createStore } from "redux";
+import { counterReducer } from "./reducer";
+
+const store = createStore(counterReducer);
+
+export default store;
+
+ Step 5: Connect React with Redux
+
+```js
+// index.js
+import { Provider } from "react-redux";
+import store from "./store";
+
+<Provider store={store}>
+  <App />
+</Provider>
+
+
+👉 Step 6: Use in Component
+
+```js
+import { useSelector, useDispatch } from "react-redux";
+import { increment } from "./actions";
+
+function Counter() {
+  const count = useSelector(state => state.count);
+  const dispatch = useDispatch();
+
+  return (
+    <>
+      <h1>{count}</h1>
+      <button onClick={() => dispatch(increment())}>
+        Increment
+      </button>
+    </>
+  );
+}
+
+🔹 5. Managing States with Redux
+
+ Key Concepts:
+
+* Store → Holds state
+* Action → What to do
+* Reducer → How state changes
+* Dispatch → Trigger action
+
+
+
+ 6. Redux Store
+
+ What is Store?
+
+Central place where all state lives.
+
+```js
+const store = createStore(reducer);
+
+
+👉 You access state using:
+
+```js
+store.getState()
+
+🔹 7. Understanding Flux Architecture
+
+Redux is inspired by Flux Architecture
+
+🔄 Flux Flow:
+
+View → Action → Dispatcher → Store → View
+
+
+ 🔹 Flux Components
+
+| Component  | Role                  |
+| ---------- | --------------------- |
+| View       | UI (React)            |
+| Action     | Event trigger         |
+| Dispatcher | Sends action to store |
+| Store      | Holds data            |
+
+
+🔹 8. Flux Example
+ 👉 Action
+
+```js
+const addUser = (user) => {
+  return {
+    type: "ADD_USER",
+    payload: user
+  };
+};
+
+ Dispatcher
+
+```js
+dispatcher.dispatch(addUser({ name: "John" }));
+
+
+  Store
+
+```js
+let store = [];
+
+dispatcher.register((action) => {
+  if(action.type === "ADD_USER") {
+    store.push(action.payload);
+  }
+});
+
+🔹 9. Redux vs Flux
+
+| Feature    | Redux        | Flux       |
+| ---------- | ------------ | ---------- |
+| Dispatcher | ❌ Not needed | ✅ Required |
+| Stores     | Single       | Multiple   |
+| Data Flow  | Simple       | Complex    |
+| Debugging  | Easy         | Hard       |
+
+
+🔹 10. Actions, Reducers, Dispatchers
+🔹 Action
+
+```js
+{ type: "LOGIN", payload: user }
+` 🔹 Reducer
+
+```js
+(state, action) => newState
+🔹 Dispatch
+
+```js
+dispatch({ type: "LOGIN" });
+
+🔹 11. View Controllers (Concept)
+
+In Flux:
+
+* Controller View connects store + UI
+* Updates UI when store changes
+
+In React:
+
+* `useSelector()` = read state
+* `useDispatch()` = send actions
+
+🔹 12. Selectors
+👉 What are Selectors?
+
+Functions to extract data from store.
+
+```js
+const selectCount = (state) => state.count;
+```
+
+Usage:
+
+```js
+const count = useSelector(selectCount);
+```
+
+---
+
+🔹
+ ✅ Advantages:
+
+* Centralized state
+* Predictable updates
+* Easy testing
+* Debugging with DevTools
+* Scalable architecture
+
+
+
+
+ Difference Redux vs Flux?
+✔ Redux has single store and no dispatcher
 
